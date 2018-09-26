@@ -276,14 +276,31 @@ keep_probability = 0.5
 tf.reset_default_graph()
 session = tf.InteractiveSession()
 
+#loading model inputs
+inputs, targets, lr, keep_prob  = model_inputs()
+
+#setting sequence length
+sequence_length = tf.placeholder_with_default(25, None, name="sequence_length")
+
+#getting the shape of inputs tensors
+input_shape = tf.shape(inputs)
 
 
-
-
-
-
-
-
+#getting training and test predictions
+training_predictions, test_predictions = seq2seq_model(tf.reverse(inputs, [-1]), 
+                                                       targets, 
+                                                       keep_prob, 
+                                                       batch_size, 
+                                                       sequence_length, 
+                                                       len(answerswords2int),
+                                                       len(questionswords2int), 
+                                                       encoder_embedding_size, 
+                                                       decoder_embedding_size, 
+                                                       rnn_size, 
+                                                       num_layers, 
+                                                       questionswords2int)
+    
+  
 
 
 
