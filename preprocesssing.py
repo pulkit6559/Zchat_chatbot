@@ -336,3 +336,13 @@ def split_into_batches(questions, answers, batch_size):
 
 #use yeild for sequences READ ABOUT IT
             
+#Splitting into training and validation set
+
+training_validation_split =  int(len(sorted_clean_questions)*0.15)
+training_questions =  sorted_clean_questions[training_validation_split:]
+training_answers =  sorted_clean_answers[training_validation_split:]
+
+validation_questions =  sorted_clean_questions[:training_validation_split]
+validation_questions =  sorted_clean_answers[:training_validation_split]
+
+
