@@ -394,3 +394,22 @@ for epoch in range(1, epochs+1):
                 average_validation_loss_error = total_validation_loss_error / (len(validation_questions) / batch_size )
 
                 print("Validation Loss Error: {:>6.3f}, Batch Validation Time: {:d} seconds".format(average_validation_loss_error, int(batch_time)))
+
+                learning_rate *= learning_rate_decay
+                if learning_rate < min_learning_rate
+                list_validation_loss_error.append(average_validation_loss_error)
+                if average_validation_loss_error <= min(list_validation_loss_error):
+                    print("I speak better now !!!!")
+                    early_stopping_check = 0
+
+
+
+
+
+
+
+
+
+
+
+
