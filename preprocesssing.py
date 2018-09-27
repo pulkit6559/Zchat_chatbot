@@ -236,8 +236,8 @@ def decoder_rnn(decoder_embedded_input, decoder_embeddings_matrix, encoder_state
 
 def seq2seq_model(inputs, targets, keep_prob, batch_size, sequence_length, answers_num_words, questions_num_words, encoder_embedding_size, decoder_embedding_size, rnn_size, num_layers, questionswords2int):
     encoder_embedded_input = tf.contrib.layers.embed_sequence(inputs,
-                                                              answers_num_words + 1
-                                                              encoder_embedding_size
+                                                              answers_num_words + 1,
+                                                              encoder_embedding_size,
                                                               initializer = tf.random_uniform_initializer(0,1)
                                                               )
 
@@ -368,7 +368,7 @@ for epoch in range(1, epochs+1):
         total_training_loss_error += batch_training_loss_error
         ending_time = time.time()
         batch_time = ending_time - starting_time
-        if batch_index % batch_index_check_training_loss == 0
+        if batch_index % batch_index_check_training_loss == 0:
             print("Epoch: {:>3}/{}, Batch: {:>4}/{}, Training Loss Error: {:>6.3f}, Training Time on 100 Batches: {:d} seconds".format(epoch,
                                                                                                                                        epochs,
                                                                                                                                        batch_index,
@@ -397,7 +397,7 @@ for epoch in range(1, epochs+1):
 
                 learning_rate *= learning_rate_decay
                 if learning_rate < min_learning_rate:
-                list_validation_loss_error.append(average_validation_loss_error)
+                    list_validation_loss_error.append(average_validation_loss_error)
                 if average_validation_loss_error <= min(list_validation_loss_error):
                     print("I speak better now !!!!")
                     early_stopping_check = 0
@@ -405,7 +405,7 @@ for epoch in range(1, epochs+1):
                     saver.save(session, checkpoint)
                 else:
                     print("Sorry I do not speak better")
-                    if early_stopping_check == early_stopping_stop):
+                    if early_stopping_check == early_stopping_stop:
                         print("Stopping Early !!")
                         break
 print("Game Over")
