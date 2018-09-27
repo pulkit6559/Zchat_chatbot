@@ -345,4 +345,16 @@ training_answers =  sorted_clean_answers[training_validation_split:]
 validation_questions =  sorted_clean_questions[:training_validation_split]
 validation_questions =  sorted_clean_answers[:training_validation_split]
 
+#TRAINING
 
+batch_index_check_training_loss = 100
+batch_index_check_validation_loss = ((len(training_questions)) // batch_size // 2) -1
+total_training_loss_error = 0
+list_validation_loss_error = []
+early_stopping_check = 0
+early_stopping_step = 1000
+checkpoint = "chatbot_weights.ckpt"
+session.run(tf.global_variables_initializer())
+
+for epoch in range(1, epochs+1):
+    for batch_index, (padded_questions_in_batch, padded_answers_in_batch)
