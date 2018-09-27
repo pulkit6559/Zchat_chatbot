@@ -396,12 +396,19 @@ for epoch in range(1, epochs+1):
                 print("Validation Loss Error: {:>6.3f}, Batch Validation Time: {:d} seconds".format(average_validation_loss_error, int(batch_time)))
 
                 learning_rate *= learning_rate_decay
-                if learning_rate < min_learning_rate
+                if learning_rate < min_learning_rate:
                 list_validation_loss_error.append(average_validation_loss_error)
                 if average_validation_loss_error <= min(list_validation_loss_error):
                     print("I speak better now !!!!")
                     early_stopping_check = 0
-
+                    saver = tf.train.Saver()
+                    saver.save(session, checkpoint)
+                else:
+                    print("Sorry I do not speak better")
+                    if early_stopping_check == early_stopping_stop):
+                        print("Stopping Early !!")
+                        break
+print("Game Over")
 
 
 
