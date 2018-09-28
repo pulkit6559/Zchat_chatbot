@@ -129,6 +129,8 @@ for answer in clean_answers:
             ints.append(answerswords2int[word])
     answers_into_int.append(ints)
 
+print(questionswords2int)
+
 # Sorting questions and answers by the length of questions
 sorted_clean_questions = []
 sorted_clean_answers = []
