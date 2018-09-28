@@ -142,13 +142,13 @@ for length in range(1, 25 + 1):
 ################     CREATING MODEL       #########################
 
 def model_inputs():
-    inputs = tf.placeholders(tf.int32, [None,None], name='input')
-    targets = tf.placeholders(tf.int32, [None,None], name='target')
+    inputs = tf.placeholder(tf.int32, [None,None], name='input')
+    targets = tf.placeholder(tf.int32, [None,None], name='target')
     lr = tf.placeholder(tf.float32, name = 'learning_rate')
     keep_prob = tf.placeholder(tf.float32, name = 'keep_prob')
     return inputs,targets,lr,keep_prob
 
-def preproess_targets(targets, word2int, batch_size):
+def preprocess_targets(targets, word2int, batch_size):
     left_side = tf.fill([batch_size,1],word2int['<SOS>'])
     right_side = tf.strided_slice(targets,[0,0],[batch_size,-1], [1,1])
     return tf.concat([left_side,right_side], axis = 1)
@@ -212,7 +212,7 @@ def decoder_rnn(decoder_embedded_input, decoder_embeddings_matrix, encoder_state
         lstm = tf.contrib.rnn.BasicLSTMCell(rnn_size)
         lstm_dropout = tf.contrib.rnn.DropoutWrapper(lstm, input_keep_prob = keep_prob)
         decoder_cell = tf.contrib.rnn.MultiRNNCell([lstm_dropout] * num_layers)
-        weights = tf.truncated_normal_initialiser(stddev = 0.1)
+        weights = tf.truncated_normal_initializer(stddev = 0.1)
         biases = tf.zeros_initializer()
         output_function = lambda x: tf.contrib.layers.fully_connected(x,
                                                                       num_words,
@@ -224,10 +224,7 @@ def decoder_rnn(decoder_embedded_input, decoder_embeddings_matrix, encoder_state
                                                    decoder_cell,
                                                    decoder_embedded_input,
                                                    sequence_length,
-                                                   decoding_scope,
-                                                   output_function,
-                                                   keep_prob,
-                                                   batch_size)
+                                                   )
         decoding_scope.reuse_variables()
         test_predictions = decode_test_set()
         
@@ -241,7 +238,7 @@ def seq2seq_model(inputs, targets, keep_prob, batch_size, sequence_length, answe
                                                               initializer = tf.random_uniform_initializer(0,1)
                                                               )
 
-    encoder_state = encoder_rnn(encoder_embedded_input, rnn_size, num_layers, keep_prob, sequence_length)
+    encoder_state = encoder_rnn_layer(encoder_embedded_input, rnn_size, num_layers, keep_prob, sequence_length)
 
     preprocessed_targets = preprocess_targets(targets, questionswords2int, batch_size)
     decoder_embeddings_matrix = tf.Variable(tf.random_uniform([questions_num_words + 1, decoder_embedding_size], 0, 1))
@@ -266,8 +263,8 @@ epochs = 50
 batch_size = 64
 rnn_size = 512
 num_layers = 3
-encoding_embedding_size = 512
-decoding_embedding_size = 512
+encoder_embedding_size = 512
+decoder_embedding_size = 512
 learning_rate = 0.01
 learning_rate_decay = 0.9
 min_learning_rate = 0.0001
