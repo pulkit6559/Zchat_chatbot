@@ -279,8 +279,8 @@ epochs = 50
 batch_size = 64
 rnn_size = 512
 num_layers = 3
-encoder_embedding_size = 512
-decoder_embedding_size = 512
+encoding_embedding_size = 512
+decoding_embedding_size = 512
 learning_rate = 0.01
 learning_rate_decay = 0.9
 min_learning_rate = 0.0001
@@ -307,8 +307,8 @@ training_predictions, test_predictions = seq2seq_model(tf.reverse(inputs, [-1]),
                                                        sequence_length, 
                                                        len(answerswords2int),
                                                        len(questionswords2int), 
-                                                       encoder_embedding_size, 
-                                                       decoder_embedding_size, 
+                                                       encoding_embedding_size, 
+                                                       decoding_embedding_size, 
                                                        rnn_size, 
                                                        num_layers, 
                                                        questionswords2int)
@@ -331,7 +331,7 @@ with tf.name_scope("optimization"):
 
 def apply_padding(batch_of_sequences, word2int):
     max_sequence_length = max([len(sequence) for sequence in batch_of_sequences])
-    return [sequence + [word2int['<PAD>'] * (max_sequence_length - len(sequence)) ] for sequence in batch_of_sequences]
+    return [sequence + [word2int['<PAD>']] * (max_sequence_length - len(sequence))  for sequence in batch_of_sequences]
 
 #Splitting data into batches of questions and answers
 
@@ -422,7 +422,6 @@ for epoch in range(1, epochs+1):
                         print("Stopping Early !!")
                         break
 print("Game Over")
-
 
 
 
