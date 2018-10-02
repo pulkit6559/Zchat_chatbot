@@ -393,7 +393,7 @@ for epoch in range(1, epochs+1):
         if batch_index % batch_index_check_training_loss == 0 and batch_index>0:
             total_validation_loss_error = 0
             starting_time = time.time()
-            for batch_index, (padded_questions_in_batch, padded_answers_in_batch) in enumerate(split_into_batches(validation_questions,valdation_answers,batch_size)):
+            for batch_index, (padded_questions_in_batch, padded_answers_in_batch) in enumerate(split_into_batches(validation_questions,validation_answers,batch_size)):
                 starting_time = time.time()
                 batch_validation_loss_error = session.run(loss_error, {inputs: padded_questions_in_batch,
                                                                        targets: padded_answers_in_batch,
