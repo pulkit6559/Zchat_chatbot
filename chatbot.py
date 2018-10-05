@@ -9,9 +9,9 @@ import time
 
 
 # Importing the dataset
-lines = open('movie_lines.txt', encoding='utf-8',
-             errors='ignore').read().split('\n')
-conversations = open('movie_conversations.txt',
+lines = open('drive/My Drive/Colab Notebooks/movie_lines.txt',
+             encoding='utf-8', errors='ignore').read().split('\n')
+conversations = open('drive/My Drive/Colab Notebooks/movie_conversations.txt',
                      encoding='utf-8', errors='ignore').read().split('\n')
 
 # Creating a dictionary that maps each line and its id
@@ -308,7 +308,9 @@ keep_probability = 0.5
 with tf.device('/gpu:0'):
   tf.reset_default_graph()
   session = tf.InteractiveSession()
-
+  checkpoint = "drive/My Drive/Colab Notebooks/chatbot_weights.ckpt"
+  saver = tf.train.Saver()
+  saver.restore(sess, tf.train.latest_checkpoint(checkpoint))
   #loading model inputs
   inputs, targets, lr, keep_prob = model_inputs()
 
@@ -390,7 +392,6 @@ with tf.device('/gpu:0'):
   list_validation_loss_error = []
   early_stopping_check = 0
   early_stopping_stop = 1000
-  checkpoint = "chatbot_weights.ckpt"
   session.run(tf.global_variables_initializer())
 
   for epoch in range(1, epochs + 1):
@@ -436,8 +437,8 @@ with tf.device('/gpu:0'):
               if average_validation_loss_error <= min(list_validation_loss_error):
                   print('I speak better now!!')
                   early_stopping_check = 0
-                  saver = tf.train.Saver()
                   saver.save(session, checkpoint)
+
               else:
                   print("Sorry I do not speak better, I need to practice more.")
                   early_stopping_check += 1
