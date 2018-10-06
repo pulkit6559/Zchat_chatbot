@@ -15,4 +15,22 @@ while(True):
         break
     question = convert_string2int(question, questionswords2int)
     questions = question + [questionswords2int['<PAD>']]* (20-len(questions))
-    question = question + 
+    fake_batch = np.zeros((batch_size, 20))
+    fake_batch[0] = question
+    predicted_answer = session.run(test_predictions, {inputs: fake_batch, keep_probability : 0.5})[0]
+    answer = ""
+    for i in np.argmax(predicted_answer, 1):
+        if answersints2word[i] == 'i':
+            token = "I"
+        elif answersints2word[i] == '<EOS':
+            token = '.'
+        elif answersints2word[i] == '<OUT>':
+            tokec = 'out'
+        else:
+            token = ' ' + answersints2word[i]
+        answer += token
+        if token == '.':
+            break
+        
+    print('ChatBot: ' + answer)
+    
