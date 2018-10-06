@@ -9,9 +9,9 @@ import time
 
 
 # Importing the dataset
-lines = open('drive/My Drive/Colab Notebooks/movie_lines.txt',
+lines = open('movie_lines.txt',
              encoding='utf-8', errors='ignore').read().split('\n')
-conversations = open('drive/My Drive/Colab Notebooks/movie_conversations.txt',
+conversations = open('movie_conversations.txt',
                      encoding='utf-8', errors='ignore').read().split('\n')
 
 # Creating a dictionary that maps each line and its id
