@@ -395,7 +395,6 @@ validation_questions = sorted_clean_questions[:training_validation_split]
 validation_answers = sorted_clean_answers[:training_validation_split]
 
 
-
 ########## PART 4 - TESTING THE SEQ2SEQ MODEL ##########
 
 
