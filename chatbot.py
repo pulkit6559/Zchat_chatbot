@@ -288,13 +288,9 @@ def seq2seq_model(inputs, targets, keep_prob, batch_size, sequence_length, answe
     encoder_embedded_input = tf.contrib.layers.embed_sequence(inputs,
                                                               answers_num_words + 1,
                                                               encoder_embedding_size,
-                                                              initializer=tf.random_uniform_initializer(
-                                                                  0, 1)
-                                                              )
-
+                                                              initializer=tf.random_uniform_initializer(0, 1))
     encoder_state = encoder_rnn(
         encoder_embedded_input, rnn_size, num_layers, keep_prob, sequence_length)
-
     preprocessed_targets = preprocess_targets(
         targets, questionswords2int, batch_size)
     decoder_embeddings_matrix = tf.Variable(tf.random_uniform(
