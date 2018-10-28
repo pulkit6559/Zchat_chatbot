@@ -323,7 +323,7 @@ min_learning_rate = 0.0001
 keep_probability = 0.5
 
 
-
+//initializing gpu for collab
 with tf.device('/gpu:0'):
     tf.reset_default_graph()
     session = tf.InteractiveSession()
