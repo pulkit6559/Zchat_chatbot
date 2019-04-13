@@ -1,7 +1,5 @@
 # _chatbot_
 *Chatbot made using Tensorflow and NLP*
-Build : Failing
-To use this repo or contribute to it clone it on your local desktop
 
 Add the following dependencies:
 Tensorflow = 1.0.0
